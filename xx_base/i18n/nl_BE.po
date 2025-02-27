@@ -17,11 +17,11 @@ msgstr ""
 
 #. module: xx_base
 msgid "First translation"
-msgstr ""
+msgstr "Eerste vertaling"
 
 #. module: xx_base
 msgid "# Reconciled Bills"
-msgstr ""
+msgstr "# Afgeletterde inkoopfacturen"
 
 #. module: xx_base
 msgid "My first automatically translated string by deepl"
