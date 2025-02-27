@@ -22,3 +22,7 @@ msgstr ""
 #. module: xx_base
 msgid "# Reconciled Bills"
 msgstr ""
+
+#. module: xx_base
+msgid "My first automatically translated string by deepl"
+msgstr ""
