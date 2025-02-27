@@ -26,3 +26,8 @@ msgstr ""
 #. module: xx_base
 msgid "My first automatically translated string by deepl"
 msgstr ""
+
+
+#. module: xx_base
+msgid "My first automatically translated string by deepl 2nd"
+msgstr ""
