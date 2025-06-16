@@ -35,5 +35,5 @@ msgid "# Reconciled Invoices"
 msgstr "# Afgeletterde verkoopfacturen"
 
 #. module: xx_base
-msgid "Gregory"
-msgstr "Jeroen"
+msgid "Approvals"
+msgstr ""
