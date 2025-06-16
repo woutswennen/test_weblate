@@ -37,3 +37,7 @@ msgstr "# Afgeletterde verkoopfacturen"
 #. module: xx_base
 msgid "Approvals"
 msgstr ""
+
+#. module: xx_base
+msgid "Cancel"
+msgstr ""
