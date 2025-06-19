@@ -1,0 +1,23 @@
+name: Weblate Project Setup
+
+on:
+  push:
+    branches:
+      - main  # or whichever branch you want
+
+jobs:
+  post-request:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Send POST request to endpoint
+        run: |
+          REPO_NAME="${{ github.event.repository.name }}"
+          REPO_SLUG=$(echo "$REPO_NAME" | tr '[:upper:]' '[:lower:]' | tr ' ' '-' | tr -cd '[:alnum:]-')
+          
+          curl -X POST https://endpoint.com \
+            -H "Content-Type: application/json" \
+            -d '{
+              "name": "'"${REPO_NAME}"'",
+              "slug": "'"${REPO_SLUG}"'",
+              "web": "https://weblate.com"
+            }'
