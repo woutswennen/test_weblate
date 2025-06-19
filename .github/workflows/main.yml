@@ -65,7 +65,7 @@ jobs:
                 "repo": "https://github.com/${{ github.repository }}",
                 "branch": "'"${BRANCH_NAME}"'",
                 "filemask": "'"${{ vars.FILEMASK }} "'",
-                "template": "path/to/your/translations/template.pot",
+                "file_format": "po",
                 "vcs": "git"
               }'
           else
