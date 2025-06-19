@@ -41,3 +41,7 @@ msgstr ""
 #. module: xx_base
 msgid "Cancel"
 msgstr ""
+
+#. module: xx_base
+msgid "ARTWORK"
+msgstr ""
