@@ -81,7 +81,7 @@ jobs:
            echo "🔧 Initializing auto-translate addon for component '${COMPONENT_SLUG}'..."
           fi
           echo "$INITIALIZING_COMPONENT"
-          echo "$INITIALIZING_COMPONENT" = true
+          echo "$INITIALIZING_COMPONENT" = true2
       
           curl -X POST "${{ vars.WEBLATE_URL }}/api/components/${REPO_SLUG}/${COMPONENT_SLUG}/addons/" \
             -H "Authorization: Token ${{ secrets.WEBLATE_TOKEN }}" \
