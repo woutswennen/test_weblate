@@ -48,7 +48,7 @@ jobs:
           echo "Checking if component '${PROJECT_COMPONENT}' exists..."
           HTTP_STATUS=$(curl -s -o /dev/null -w "%{http_code}" \
             -H "Authorization: Token ${{ secrets.WEBLATE_TOKEN }}" \
-            "${{ vars.WEBLATE_URL }}/api/projects/${REPO_SLUG}/components/")
+            "${{ vars.WEBLATE_URL }}/api/components/${REPO_SLUG}/${COMPONENT_SLUG}/")
 
           if [ "$HTTP_STATUS" -eq 200 ]; then
             echo "✅ Component '${COMPONENT_SLUG}' already exists."
