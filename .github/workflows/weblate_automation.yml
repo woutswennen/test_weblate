@@ -70,7 +70,7 @@ jobs:
                 "filemask": "'"${{ vars.FILEMASK }} "'",
                 "file_format": "po",
                 "vcs": "git",
-                "new_lang": "none"
+                "new_lang": "none",
                 "push_on_commit": true,
                 "commit_pending_age": 1
               }'
