@@ -62,7 +62,7 @@ jobs:
                 "name": "'"${COMPONENT_SLUG}"'",
                 "slug": "'"${COMPONENT_SLUG}"'",
                 "project": "'"${REPO_SLUG}"'",
-                "repo": "https://github.com/${{ github.repository }}",
+                "repo": "git@github.com:${{ github.repository }}",
                 "branch": "'"${BRANCH_NAME}"'",
                 "filemask": "'"${{ vars.FILEMASK }} "'",
                 "file_format": "po",
