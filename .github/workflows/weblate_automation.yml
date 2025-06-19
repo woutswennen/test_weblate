@@ -71,6 +71,7 @@ jobs:
               }'
       
             INITIALIZING_COMPONENT=true
+            echo "hey"
             echo $INITIALIZING_COMPONENT
           else
             echo "❌ Unexpected HTTP status: $HTTP_STATUS"
