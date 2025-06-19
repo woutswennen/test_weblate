@@ -79,6 +79,7 @@ jobs:
           # # Create addon if component was just initialized
           if [ $INITIALIZING_COMPONENT = true ]; then
            echo "🔧 Initializing auto-translate addon for component '${COMPONENT_SLUG}'..."
+          fi
           echo "$INITIALIZING_COMPONENT"
           echo "$INITIALIZING_COMPONENT" = true
       
