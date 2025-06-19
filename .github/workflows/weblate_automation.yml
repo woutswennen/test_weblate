@@ -72,7 +72,7 @@ jobs:
                 "vcs": "git",
                 "new_lang": "none"
                 "push_on_commit": true,
-                "commit_pending_age": 1,
+                "commit_pending_age": 1
               }'
       
           else
