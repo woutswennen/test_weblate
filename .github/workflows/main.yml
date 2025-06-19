@@ -44,17 +44,17 @@ jobs:
           REPO_SLUG=$(echo "$REPO_NAME" | tr '[:upper:]' '[:lower:]' | tr ' ' '-' | tr -cd '[:alnum:]-')
           COMPONENT_SLUG=$(echo "$REPO_SLUG-$BRANCH_NAME" | tr '[:upper:]' '[:lower:]' | tr ' ' '-' | tr -cd '[:alnum:]-')
           PROJECT_COMPONENT="${REPO_SLUG}.${COMPONENT_SLUG}"
-
+      
           echo "Checking if component '${PROJECT_COMPONENT}' exists..."
           HTTP_STATUS=$(curl -s -o /dev/null -w "%{http_code}" \
             -H "Authorization: Token ${{ secrets.WEBLATE_TOKEN }}" \
             "${{ vars.WEBLATE_URL }}/api/components/${REPO_SLUG}/${COMPONENT_SLUG}/")
-
+      
           if [ "$HTTP_STATUS" -eq 200 ]; then
             echo "✅ Component '${COMPONENT_SLUG}' already exists."
+            INITIALIZING_COMPONENT=false
           elif [ "$HTTP_STATUS" -eq 404 ]; then
             echo "⚠️ Component not found. Creating '${COMPONENT_SLUG}'..."
-
             curl -X POST "${{ vars.WEBLATE_URL }}/api/projects/${REPO_SLUG}/components/" \
               -H "Authorization: Token ${{ secrets.WEBLATE_TOKEN }}" \
               -H "Content-Type: application/json" \
@@ -69,8 +69,28 @@ jobs:
                 "vcs": "git",
                 "new_lang": "none"
               }'
+      
+            INITIALIZING_COMPONENT=true
           else
             echo "❌ Unexpected HTTP status: $HTTP_STATUS"
             exit 1
           fi
-
+      
+          # Create addon if component was just initialized
+          if [ "$INITIALIZING_COMPONENT" = true ]; then
+            echo "🔧 Initializing auto-translate addon for component '${COMPONENT_SLUG}'..."
+      
+            curl -X POST "${{ vars.WEBLATE_URL }}/api/components/${REPO_SLUG}/${COMPONENT_SLUG}/addons/" \
+              -H "Authorization: Token ${{ secrets.WEBLATE_TOKEN }}" \
+              -H "Content-Type: application/json" \
+              -d '{
+                "name": "weblate.autotranslate.autotranslate",
+                "configuration": {
+                  "mode": "translate",
+                  "engines": ["weblate", "weblate-translation-memory"],
+                  "threshold": 80,
+                  "auto_source": "mt",
+                  "filter_type": "todo"
+                }
+              }'
+          fi
