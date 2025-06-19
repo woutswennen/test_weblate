@@ -65,10 +65,14 @@ jobs:
                 "project": "'"${REPO_SLUG}"'",
                 "repo": "git@github.com:${{ github.repository }}",
                 "branch": "'"${BRANCH_NAME}"'",
+                "push": "git@github.com:${{ github.repository }}",
+                "push_branch": "'"${BRANCH_NAME}"'",
                 "filemask": "'"${{ vars.FILEMASK }} "'",
                 "file_format": "po",
                 "vcs": "git",
                 "new_lang": "none"
+                "push_on_commit": true,
+                "commit_pending_age": 1,
               }'
       
           else
