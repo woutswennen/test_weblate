@@ -20,7 +20,9 @@ jobs:
             -H "Authorization: Token ${{ secrets.WEBLATE_TOKEN }}" \
             "${{ vars.WEBLATE_URL }}/api/projects/${REPO_SLUG}/")
 
-          if [ "$HTTP_STATUS" -eq 404 ]; then
+          if [ "$HTTP_STATUS" -eq 200 ]; then
+            echo "✅ Component '${COMPONENT_SLUG}' already exists."
+          elif [ "$HTTP_STATUS" -eq 404 ]; then
             echo "⚠️ Project not found. Creating '${REPO_SLUG}'..."
             curl -X POST "${{ vars.WEBLATE_URL }}/api/projects/" \
               -H "Authorization: Token ${{ secrets.WEBLATE_TOKEN }}" \
@@ -31,5 +33,43 @@ jobs:
                 "web": "https://weblate.com"
               }'
           else
-            echo "Project already exists. Skipping creation"
+            echo "❌ Unexpected HTTP status: $HTTP_STATUS"
+            exit 1
           fi
+
+      - name: Check and create component in Weblate for current branch
+        run: |
+          REPO_NAME="${{ github.event.repository.name }}"
+          BRANCH_NAME="${{ github.ref_name }}"
+          REPO_SLUG=$(echo "$REPO_NAME" | tr '[:upper:]' '[:lower:]' | tr ' ' '-' | tr -cd '[:alnum:]-')
+          COMPONENT_SLUG=$(echo "$REPO_SLUG-$BRANCH_NAME" | tr '[:upper:]' '[:lower:]' | tr ' ' '-' | tr -cd '[:alnum:]-')
+          PROJECT_COMPONENT="${REPO_SLUG}.${COMPONENT_SLUG}"
+
+          echo "Checking if component '${PROJECT_COMPONENT}' exists..."
+          HTTP_STATUS=$(curl -s -o /dev/null -w "%{http_code}" \
+            -H "Authorization: Token ${{ secrets.WEBLATE_TOKEN }}" \
+            "${{ vars.WEBLATE_URL }}/api/components/${PROJECT_COMPONENT}/")
+
+          if [ "$HTTP_STATUS" -eq 200 ]; then
+            echo "✅ Component '${COMPONENT_SLUG}' already exists."
+          elif [ "$HTTP_STATUS" -eq 404 ]; then
+            echo "⚠️ Component not found. Creating '${COMPONENT_SLUG}'..."
+
+            curl -X POST "${{ vars.WEBLATE_URL }}/api/projects/${{ REPO_SLUG }}/components" \
+              -H "Authorization: Token ${{ secrets.WEBLATE_TOKEN }}" \
+              -H "Content-Type: application/json" \
+              -d '{
+                "name": "'"${COMPONENT_SLUG}"'",
+                "slug": "'"${COMPONENT_SLUG}"'",
+                "project": "'"${REPO_SLUG}"'",
+                "repo": "https://github.com/${{ github.repository }}",
+                "branch": "'"${BRANCH_NAME}"'",
+                "filemask": "'"${{ vars.FILEMASK }} "'",
+                "template": "path/to/your/translations/template.pot",
+                "vcs": "git"
+              }'
+          else
+            echo "❌ Unexpected HTTP status: $HTTP_STATUS"
+            exit 1
+          fi
+
