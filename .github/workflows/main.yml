@@ -55,7 +55,7 @@ jobs:
           elif [ "$HTTP_STATUS" -eq 404 ]; then
             echo "⚠️ Component not found. Creating '${COMPONENT_SLUG}'..."
 
-            curl -X POST "${{ vars.WEBLATE_URL }}/api/projects/${ REPO_SLUG }/components" \
+            curl -X POST "${{ vars.WEBLATE_URL }}/api/projects/${REPO_SLUG}/components" \
               -H "Authorization: Token ${{ secrets.WEBLATE_TOKEN }}" \
               -H "Content-Type: application/json" \
               -d '{
