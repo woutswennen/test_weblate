@@ -30,4 +30,6 @@ jobs:
                 "slug": "'"${REPO_SLUG}"'",
                 "web": "https://weblate.com"
               }'
+          else
+            echo "Project already exists. Skipping creation"
           fi
