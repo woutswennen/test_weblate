@@ -78,22 +78,18 @@ jobs:
       
           # # Create addon if component was just initialized
           if [ "$INITIALIZING_COMPONENT" = "true" ]; then
-           echo "🔧 Initializing auto-translate addon for component '${COMPONENT_SLUG}'..."
-          fi
-          echo "$INITIALIZING_COMPONENT"
-          echo "$INITIALIZING_COMPONENT" = true2
-      
-          curl -X POST "${{ vars.WEBLATE_URL }}/api/components/${REPO_SLUG}/${COMPONENT_SLUG}/addons/" \
-            -H "Authorization: Token ${{ secrets.WEBLATE_TOKEN }}" \
-            -H "Content-Type: application/json" \
-            -d '{
-              "name": "weblate.autotranslate.autotranslate",
-              "configuration": {
-                "mode": "translate",
-                "engines": ["weblate", "weblate-translation-memory"],
-                "threshold": 80,
-                "auto_source": "mt",
-                "filter_type": "todo"
-              }
-            }'
-          # fi
+            echo "🔧 Initializing auto-translate addon for component '${COMPONENT_SLUG}'..."
+            curl -X POST "${{ vars.WEBLATE_URL }}/api/components/${REPO_SLUG}/${COMPONENT_SLUG}/addons/" \
+              -H "Authorization: Token ${{ secrets.WEBLATE_TOKEN }}" \
+              -H "Content-Type: application/json" \
+              -d '{
+                "name": "weblate.autotranslate.autotranslate",
+                "configuration": {
+                  "mode": "translate",
+                  "engines": ["weblate", "weblate-translation-memory"],
+                  "threshold": 80,
+                  "auto_source": "mt",
+                  "filter_type": "todo"
+                }
+              }'
+           fi
