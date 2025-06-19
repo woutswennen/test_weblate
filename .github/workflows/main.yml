@@ -14,8 +14,9 @@ jobs:
           REPO_NAME="${{ github.event.repository.name }}"
           REPO_SLUG=$(echo "$REPO_NAME" | tr '[:upper:]' '[:lower:]' | tr ' ' '-' | tr -cd '[:alnum:]-')
           
-          curl -X POST https://d09c-91-183-224-194.ngrok-free.app \
+          curl -X POST https://d09c-91-183-224-194.ngrok-free.app/api/projects/ \
             -H "Authorization: Token ${{ secrets.WEBLATE_TOKEN }}" \
+            -H "Content-Type: application/json" \
             -d '{
               "name": "'"${REPO_NAME}"'",
               "slug": "'"${REPO_SLUG}"'",
