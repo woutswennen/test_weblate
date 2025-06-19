@@ -66,7 +66,8 @@ jobs:
                 "branch": "'"${BRANCH_NAME}"'",
                 "filemask": "'"${{ vars.FILEMASK }} "'",
                 "file_format": "po",
-                "vcs": "git"
+                "vcs": "git",
+                "new_base": "xx_base/i18n/nl_BE.po",
               }'
           else
             echo "❌ Unexpected HTTP status: $HTTP_STATUS"
