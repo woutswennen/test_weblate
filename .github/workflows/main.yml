@@ -4,21 +4,30 @@ on:
   push:
     branches:
       - '**'
+
 jobs:
   post-request:
     runs-on: ubuntu-latest
     environment: 'Weblate env'
     steps:
-      - name: Create project in Weblate
+      - name: Check and create project in Weblate
         run: |
           REPO_NAME="${{ github.event.repository.name }}"
           REPO_SLUG=$(echo "$REPO_NAME" | tr '[:upper:]' '[:lower:]' | tr ' ' '-' | tr -cd '[:alnum:]-')
-          
-          curl -X POST ${{ vars.WEBLATE_URL }}/api/projects/ \
+
+          echo "Checking if project '${REPO_SLUG}' exists..."
+          HTTP_STATUS=$(curl -s -o /dev/null -w "%{http_code}" \
             -H "Authorization: Token ${{ secrets.WEBLATE_TOKEN }}" \
-            -H "Content-Type: application/json" \
-            -d '{
-              "name": "'"${REPO_NAME}"'",
-              "slug": "'"${REPO_SLUG}"'",
-              "web": "https://weblate.com"
-            }'
+            "${{ vars.WEBLATE_URL }}/api/projects/${REPO_SLUG}/")
+
+          if [ "$HTTP_STATUS" -eq 404 ]; then
+            echo "⚠️ Project not found. Creating '${REPO_SLUG}'..."
+            curl -X POST "${{ vars.WEBLATE_URL }}/api/projects/" \
+              -H "Authorization: Token ${{ secrets.WEBLATE_TOKEN }}" \
+              -H "Content-Type: application/json" \
+              -d '{
+                "name": "'"${REPO_NAME}"'",
+                "slug": "'"${REPO_SLUG}"'",
+                "web": "https://weblate.com"
+              }'
+          fi
