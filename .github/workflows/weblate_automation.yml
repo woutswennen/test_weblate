@@ -54,6 +54,7 @@ jobs:
             echo "✅ Component '${COMPONENT_SLUG}' already exists."
             INITIALIZING_COMPONENT=false
           elif [ "$HTTP_STATUS" -eq 404 ]; then
+            INITIALIZING_COMPONENT=true
             echo "⚠️ Component not found. Creating '${COMPONENT_SLUG}'..."
             curl -X POST "${{ vars.WEBLATE_URL }}/api/projects/${REPO_SLUG}/components/" \
               -H "Authorization: Token ${{ secrets.WEBLATE_TOKEN }}" \
@@ -70,14 +71,13 @@ jobs:
                 "new_lang": "none"
               }'
       
-            INITIALIZING_COMPONENT=true
           else
             echo "❌ Unexpected HTTP status: $HTTP_STATUS"
             exit 1
           fi
       
           # # Create addon if component was just initialized
-          if [[ ${INITIALIZING_COMPONENT:-false} = true ]]; then
+          if [[ "${INITIALIZING_COMPONENT:-false}" = true ]]; then
            echo "🔧 Initializing auto-translate addon for component '${COMPONENT_SLUG}'..."
           fi
           echo "$INITIALIZING_COMPONENT"
