@@ -71,8 +71,6 @@ jobs:
               }'
       
             INITIALIZING_COMPONENT=true
-            echo "hey"
-            echo $INITIALIZING_COMPONENT
           else
             echo "❌ Unexpected HTTP status: $HTTP_STATUS"
             exit 1
@@ -81,6 +79,8 @@ jobs:
           # # Create addon if component was just initialized
           # if [ "$INITIALIZING_COMPONENT" = true ]; then
           #   echo "🔧 Initializing auto-translate addon for component '${COMPONENT_SLUG}'..."
+          echo "$INITIALIZING_COMPONENT"
+          echo "$INITIALIZING_COMPONENT" = true
       
           curl -X POST "${{ vars.WEBLATE_URL }}/api/components/${REPO_SLUG}/${COMPONENT_SLUG}/addons/" \
             -H "Authorization: Token ${{ secrets.WEBLATE_TOKEN }}" \
