@@ -50,3 +50,6 @@ msgstr ""
 #. module: xx_base
 msgid "ARTWORK"
 msgstr ""
+
+msgid "Hey there !"
+msgstr ""
