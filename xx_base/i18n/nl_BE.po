@@ -59,3 +59,7 @@ msgstr ""
 
 msgid "Sale Order"
 msgstr ""
+
+msgid "Purchase Order"
+msgstr ""
+
