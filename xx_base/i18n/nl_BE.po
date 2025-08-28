@@ -20,11 +20,11 @@ msgstr ""
 
 #. module: xx_base
 msgid "First translation"
-msgstr "Eerste vertaling"
+msgstr ""
 
 #. module: xx_base
 msgid "# Reconciled Bills"
-msgstr "# Afgeletterde inkoopfacturen"
+msgstr ""
 
 #. module: xx_base
 msgid "My first automatically translated string by deepl"
@@ -32,7 +32,7 @@ msgstr ""
 
 #. module: xx_base
 msgid "# Reconciled Invoices"
-msgstr "# Afgeletterde verkoopfacturen"
+msgstr ""
 
 #. module: xx_base
 msgid "Approvals"
@@ -55,4 +55,7 @@ msgid "ARTWORK"
 msgstr ""
 
 msgid "Hey there !"
+msgstr ""
+
+msgid "Sale Order"
 msgstr ""
