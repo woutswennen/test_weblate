@@ -46,6 +46,9 @@ msgstr ""
 msgid "ARTWORK"
 msgstr ""
 
+msgid "Name"
+msgstr ""
+
 
 #. module: xx_base
 msgid "ARTWORK"
