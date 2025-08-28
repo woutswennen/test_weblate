@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-12-23 08:34+0000\n"
-"PO-Revision-Date: 2025-08-28 12:49+0000\n"
+"PO-Revision-Date: 2025-08-28 12:56+0000\n"
 "Last-Translator: admin <admin@example.com>\n"
 "Language-Team: Dutch (Belgium) <http://chart-example.local/projects/"
 "testweblate/testweblate-featurewc-2/nl_BE/>\n"
@@ -40,7 +40,7 @@ msgstr "Goekkeuren"
 
 #. module: xx_base
 msgid "Cancel"
-msgstr "Annuleren"
+msgstr "Annuleer"
 
 #. module: xx_base
 msgid "ARTWORK"
